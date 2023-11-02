@@ -5,40 +5,48 @@ class Figures {
 protected:
     int Number_of_sides;
     std::string Name_of_figure;
-    int a;
-    int b;
-    int c;
-    int d;
-    int A;
-    int B;
-    int C;
-    int D;
+    
 public:
     Figures() {
         Number_of_sides = 0;
         Name_of_figure = "Фигура";
     }
-    void Show_sides() {
-        std::cout <<"Количество сторон: " << Number_of_sides << "\n";
+
+    virtual void Show_figure() {
+
     }
-    void figure_correct() {
-        if (Number_of_sides == 0) { std::cout << "Правильная фигура\n"; }
-        else if (Number_of_sides = 3) {
-            if(A + B + C == 180){ std::cout << "Правильная фигура\n"; }
-            else { std::cout << "Неправильная фигура\n"; }
+
+    virtual bool figure_correct() {
+        if (Number_of_sides == 0) { return true; }
+        return false;
+    }
+
+    void Show_info() {
+        std::cout << "\n" << "\n" << Name_of_figure << ":\n";
+
+        if (figure_correct()) {
+            std::cout << "Правильная фигура" << "\n";
         }
-        else if (Number_of_sides = 4) {
-            if (A + B + C + D == 360) { std::cout << "Правильная фигура\n"; }
-            else { std::cout << "Неправильная фигура\n"; }
-        }
-        else { std::cout << "Такой фигуры нет\n"; }
+
+        else { std::cout << "Неправильная фигура" << "\n"; }
+        std::cout << "Количество сторон: " << Number_of_sides << "\n";
+
+        Show_figure();
+
     }
-    void Show_name() {
-        std::cout <<"\n" << "\n" << Name_of_figure << ":\n";
-    }
+
+    
+   
 };
 
 class Triangle : public Figures {
+protected:
+    int a;
+    int b;
+    int c;
+    int A;
+    int B;
+    int C;
 public:
     Triangle() {
         a = 0;
@@ -60,7 +68,13 @@ public:
         Number_of_sides = 3;
         Name_of_figure = "Треугольник";
     }
-    void Show_triangle() {
+
+    bool figure_correct() override {
+            if (A + B + C == 180) { return true; }
+                return false;
+        }
+    
+    void Show_figure() override {
         std::cout << "Стороны: " << a << " " << b << " " << c << "\n";
         std::cout << "Углы: " << A << " " << B << " " << C;
     }
@@ -104,6 +118,15 @@ public:
 
 
 class Quadrangle : public Figures {
+protected:
+    int a;
+    int b;
+    int c;
+    int d;
+    int A;
+    int B;
+    int C;
+    int D;
 public:
     Quadrangle() {
         a = 0;
@@ -129,7 +152,13 @@ public:
         Number_of_sides = 4;
         Name_of_figure = "Четырёхугольник";
     }
-    void Show_quadrangle() {
+
+    bool figure_correct() override {
+        if (A + B + C + D == 360) { return true; }
+        else { return false; }
+    }
+
+    void Show_figure() override {
         std::cout << "Стороны: " << a << " " << b << " " << c << " " << d << "\n";
         std::cout << "Углы: " << A << " " << B << " " << C << " " << D;
     }
@@ -191,6 +220,9 @@ public:
     }
 };
 
+
+
+
 int main()
 {
     setlocale(LC_ALL, "russian");
@@ -205,54 +237,26 @@ int main()
     Rhomb rhomb(30, 20, 30);
     Quadrate quadrate(20);
 
-    figure.Show_name();
-    figure.figure_correct();
-    figure.Show_sides();
+    figure.Show_info();
     
-    triangle.Show_name();
-    triangle.figure_correct();
-    triangle.Show_sides();
-    triangle.Show_triangle();
+    triangle.Show_info();
     
-    right_triangle.Show_name();
-    right_triangle.figure_correct();
-    right_triangle.Show_sides();
-    right_triangle.Show_triangle();
+    right_triangle.Show_info();
   
-    isosceles_triangle.Show_name();
-    isosceles_triangle.figure_correct(); 
-    isosceles_triangle.Show_sides(); 
-    isosceles_triangle.Show_triangle();
+    isosceles_triangle.Show_info();
 
-    equilateral_triangle.Show_name();
-    equilateral_triangle.figure_correct(); 
-    equilateral_triangle.Show_sides(); 
-    equilateral_triangle.Show_triangle();
+    equilateral_triangle.Show_info();
 
-    quadrangle.Show_name();
-    quadrangle.figure_correct(); 
-    quadrangle.Show_sides();
-    quadrangle.Show_quadrangle();
+    quadrangle.Show_info();
 
-    rectangle.Show_name();
-    rectangle.figure_correct();
-    rectangle.Show_sides(); 
-    rectangle.Show_quadrangle();
+    rectangle.Show_info();
 
-    quadrate.Show_name();
-    quadrate.figure_correct();
-    quadrate.Show_sides(); 
-    quadrate.Show_quadrangle();
+    quadrate.Show_info();
 
-    parallelogram.Show_name();
-    parallelogram.figure_correct();
-    parallelogram.Show_sides(); 
-    parallelogram.Show_quadrangle();
+    parallelogram.Show_info();
 
-    rhomb.Show_name();
-    rhomb.figure_correct();
-    rhomb.Show_sides(); 
-    rhomb.Show_quadrangle();
+    rhomb.Show_info();
+
     std::cout << "\n";
 
 
